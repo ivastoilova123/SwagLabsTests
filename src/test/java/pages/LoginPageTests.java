@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -15,6 +16,7 @@ import static commonUsed.DriverSetUp.chromeDriver;
 public class LoginPageTests {
     WebDriver driver = chromeDriver();
     LogInPage logIn = new LogInPage(driver);
+    DriverSetUp driverSetUp = new DriverSetUp();
 
 
     @Test
@@ -47,4 +49,9 @@ public class LoginPageTests {
         // Verify invalid log in message
         Assert.assertTrue(logIn.LockedUserInvalidLogInMessege().getText().contains("Username and password do not match any user in this service"));
     }
+
+    @AfterMethod
+    public void quitBrowser(){
+    driver.quit();
+}
 }
