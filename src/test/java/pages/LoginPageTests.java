@@ -37,4 +37,14 @@ public class LoginPageTests {
         // Verify invalid log in message
         Assert.assertTrue(logIn.LockedUserInvalidLogInMessege().getText().contains("locked out"));
     }
+
+    @Test
+    public void inValidLogInWithInvalidPassword(){
+        logIn.gotTo();
+        // Verify you are on swag page
+        Assert.assertTrue(logIn.Logo().getText().contains("Swag Labs "), "Congrats! You are on right page");
+        logIn.logInSwagLabsPage("locked_out_user","secret_sauceee" );
+        // Verify invalid log in message
+        Assert.assertTrue(logIn.LockedUserInvalidLogInMessege().getText().contains("Username and password do not match any user in this service"));
+    }
 }
