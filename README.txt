@@ -1,6 +1,6 @@
 # 🧪 Running Java Test Cases
 
-This project contains automated test cases written in Java using TestNG and Selenium. You can run the tests using Maven or using TestNG annotations.
+This project contains automated test cases written in Java using TestNG and Selenium. You can run the pages using Maven or using TestNG annotations.
 
 ---
 
@@ -35,12 +35,12 @@ mvn -Dtest=ClassName test
 src
  ├── main
  │   └── java
- │       └── commonUsed
+ │       └── driver
                   └── DriverSetUp
                              └── pages
                                        └── LoginPage              
 
  └── test
      └── java
-         └── tests
+         └── pages
                 └── LoginPageTests

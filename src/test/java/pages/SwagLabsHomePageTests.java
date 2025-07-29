@@ -1,15 +1,12 @@
-package tests;
+package pages;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static commonUsed.DriverSetUp.chromeDriver;
 
-public class SwagLabsHomePageTests {
+public class SwagLabsHomePageTests extends BaseTest {
 
-    WebDriver driver = chromeDriver();
-    LogInPage logIn = new LogInPage(driver);
+    LogInPage logIn;
 
     @BeforeMethod
     public void logInSwagLabsPage(){

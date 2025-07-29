@@ -1,23 +1,15 @@
-package tests;
+package pages;
 
 import lombok.Getter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
-
-import static java.lang.Thread.sleep;
 
 @Getter
 public class LogInPage {
     private final WebDriver driver;
     private static final String URL = "https://www.saucedemo.com/";
-    WebDriverWait wait;
 
     @FindBy(id = "user-name")
     private WebElement usernameField;
@@ -26,8 +18,11 @@ public class LogInPage {
     private WebElement passwordField;
 
     @Getter
-    @FindBy(xpath = "//div[@class=\"app_logo\"]")
-    private WebElement pageLogo;
+    @FindBy(className = "app_logo")
+    private WebElement appLogo;
+
+    @FindBy(className = "login_logo")
+    private WebElement loginPageLogo;
 
     @FindBy(id = "login-button")
     private WebElement logInButton;
@@ -42,9 +37,7 @@ public class LogInPage {
 
     public LogInPage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver,30);
         PageFactory.initElements(driver, this);
-
     }
 
     public void gotTo() {
