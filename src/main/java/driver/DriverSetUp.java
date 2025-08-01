@@ -9,6 +9,7 @@ import org.testng.annotations.Parameters;
 
 public class DriverSetUp {
     protected WebDriver driver;
+
     @Parameters("browser")
     public void setUp(@Optional("chrome") String browser) {
         if (browser.equalsIgnoreCase("chrome")) {

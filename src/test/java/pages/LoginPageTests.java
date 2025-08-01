@@ -18,7 +18,6 @@ public class LoginPageTests extends BaseTest {
         logIn.gotTo();
         Assert.assertTrue(logIn.getLoginPageLogo().isDisplayed());
         Assert.assertTrue(logIn.getLoginPageLogo().getText().equals("Swag Labs"), "Something's wrong with logo text!");
-
     }
 
     @Test

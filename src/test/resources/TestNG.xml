@@ -3,8 +3,12 @@
     <test name="Chrome Test">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="pages.LoginPageTests"/>
-<!--            <class name="pages.SwagLabsHomePageTests"/>-->
+<!--            <class name="pages.LoginPageTests"/>-->
+           <class name="pages.SwagLabsHomePageTests"/>
+<!--               <methods>-->
+<!--                   <include name="addToCardElements" />-->
+<!--               </methods>-->
+<!--           </class>-->
         </classes>
     </test>
 <!--   /<test name="Firefox Test">-->

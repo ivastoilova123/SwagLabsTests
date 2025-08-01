@@ -8,9 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 
 @Getter
 public class LogInPage {
-    private final WebDriver driver;
-    private static final String URL = "https://www.saucedemo.com/";
+    protected WebDriver driver;
+   @Getter private static final String URL = "https://www.saucedemo.com/";
 
+    @Getter
     @FindBy(id = "user-name")
     private WebElement usernameField;
 
