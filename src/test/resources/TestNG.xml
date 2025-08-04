@@ -4,11 +4,11 @@
         <parameter name="browser" value="chrome"/>
         <classes>
 <!--            <class name="pages.LoginPageTests"/>-->
-           <class name="pages.SwagLabsHomePageTests"/>
-<!--               <methods>-->
-<!--                   <include name="addToCardElements" />-->
-<!--               </methods>-->
-<!--           </class>-->
+           <class name="pages.LoginPageTests">
+               <methods>
+                   <include name="readJsonInvalidLogInDataDataProvider" />
+               </methods>
+           </class>
         </classes>
     </test>
 <!--   /<test name="Firefox Test">-->
