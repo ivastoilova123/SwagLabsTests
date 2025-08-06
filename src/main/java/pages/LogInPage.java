@@ -34,7 +34,7 @@ public class LogInPage {
 
     @Getter
     @FindBy(xpath = "//h3[@data-test=\"error\"]")
-    private WebElement lockedUserMessage;
+    private WebElement errorMessage;
 
     public LogInPage(WebDriver driver) {
         this.driver = driver;

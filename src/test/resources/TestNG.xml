@@ -4,9 +4,9 @@
         <parameter name="browser" value="chrome"/>
         <classes>
 <!--            <class name="pages.LoginPageTests"/>-->
-           <class name="pages.LoginPageTests">
+           <class name="pages.SwagLabsHomePageTests">
                <methods>
-                   <include name="readJsonInvalidLogInDataDataProvider" />
+                   <include name="verifyDefaultSelectedDropdownValue" />
                </methods>
            </class>
         </classes>

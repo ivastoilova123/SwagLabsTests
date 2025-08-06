@@ -108,11 +108,24 @@ public class SwagLabsHomePage extends LogInPage {
     }
 
     public void selectDropdownElement(String text){
+        wait.until(ExpectedConditions.visibilityOf(dropdownOptions));
         WebElement dropdown = driver.findElement
                 (By.xpath("//select[@class=\"product_sort_container\"]"));
         dropdown.click();
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         wait.until(ExpectedConditions.visibilityOf(dropdownOptions));
         Select select = new Select(dropdown);
+        System.out.println(text);
+        select.selectByVisibleText(text);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         select.selectByVisibleText(text);
 
     }

@@ -1,0 +1,10 @@
+{
+  "userPasswordDoestMatch": "Epic sadface: Username and password do not match any user in this service",
+  "userLockedOut": "Epic sadface: Sorry, this user has been locked out.",
+
+  "standardUserUsername": "standard_user",
+  "lockedUserUsername": "locked_out_user",
+
+  "correctPassword": "secret_sauce",
+  "wrongPassword": "secret_sauceee"
+}

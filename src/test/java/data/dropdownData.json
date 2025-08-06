@@ -1,0 +1,9 @@
+{
+  "nameAscendingOrder": "Name (A to Z)",
+  "nameDescendingOrder": "Name (Z to A)",
+  "priceAscendingOrder": "Price (low to high)",
+  "priceDescendingOrder": "Price (high to low)",
+
+
+  "dropdownOptions": ["Name (A to Z)", "Name (Z to A)", "Price (low to high)", "Price (high to low)"]
+}
