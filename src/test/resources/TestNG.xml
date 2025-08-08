@@ -6,7 +6,7 @@
 <!--            <class name="pages.LoginPageTests"/>-->
            <class name="pages.SwagLabsHomePageTests">
                <methods>
-                   <include name="verifyDefaultSelectedDropdownValue" />
+                   <include name="selectDropdownElements" />
                </methods>
            </class>
         </classes>

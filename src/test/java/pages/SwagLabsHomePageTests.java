@@ -1,6 +1,6 @@
 package pages;
 
-import data.TestDataProvider;
+import data.LoadDataFromJson;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -8,19 +8,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static constants.Constants.*;
+
 
 public class SwagLabsHomePageTests extends LoginPageTests {
     LogInPage logIn;
     SwagLabsHomePage swagLabsHomePage;
     ShoppingCardPage shoppingCardPage;
-    TestDataProvider testDataProvider = new TestDataProvider();;
+  //  LoadDataFromJson testDataProvider = new LoadDataFromJson();;
 
     @Parameters("browser")
     @BeforeMethod
     public void setUp(String browser) {
         super.setUp(browser);
         logIn = new LogInPage(driver);
-        logIn.logInSwagLabsPage(dataProvider.getCorrectStandardUserUsername(), dataProvider.getCorrectPassword());
+        logIn.logInSwagLabsPage(STANDARD_USER_USERNAME, PASSWORD);
     }
 
     @Test
@@ -37,7 +39,8 @@ public class SwagLabsHomePageTests extends LoginPageTests {
     public void verifyMenuItemsPresence() {
         swagLabsHomePage = new SwagLabsHomePage(driver);
         swagLabsHomePage.openMenuList();
-        List<String> menuElementsExpectedList = Arrays.asList("All Items", "About", "Logout", "Reset App State");
+        List<String> menuElementsExpectedList =
+                LoadDataFromJson.getDropdownOptions(JSON_FILE_DROPDOWN_DATA_LOCATION, MAIN_MENU_DROPDOWN_OPTIONS);
         Assert.assertTrue(menuElementsExpectedList.equals(swagLabsHomePage.getListOfMenuItems()));
     }
 
@@ -45,24 +48,24 @@ public class SwagLabsHomePageTests extends LoginPageTests {
     public void verifyDropDownSortElementsPresence() {
         swagLabsHomePage = new SwagLabsHomePage(driver);
         List<String> dropdownMenuElementsExpectedList =
-                testDataProvider.getDropdownOptions(JSON_FILE_DROPDOWN_LOCATION, "dropdownOptions");
+                LoadDataFromJson.getDropdownOptions(JSON_FILE_DROPDOWN_DATA_LOCATION, DROPDOWN_DATA_OPTIONS);
         Assert.assertTrue(dropdownMenuElementsExpectedList.equals(swagLabsHomePage.getDropDownSortElements()));
     }
 
     @Test
     public void verifyDefaultSelectedDropdownValue() {
         swagLabsHomePage = new SwagLabsHomePage(driver);
-        String expectedSelectedValue = testDataProvider.getKeyValue(JSON_FILE_DROPDOWN_LOCATION, "nameAscendingOrder");
+        String expectedSelectedValue = LoadDataFromJson.getKeyValue(JSON_FILE_DROPDOWN_DATA_LOCATION, DROPDOWN_NAMES_ASC_ORDER);
         Assert.assertTrue(expectedSelectedValue.equals(swagLabsHomePage.getSelectedDropdownValue()));
     }
 
     @DataProvider(name = "selectDropdownElements")
     public Object[][] getData() {
         return new Object[][]{
-                  {"nameAscendingOrder"},
-                  {"nameDescendingOrder"},
-                  {"priceAscendingOrder"},
-                  {"priceDescendingOrder"}
+                {DROPDOWN_NAMES_ASC_ORDER},
+                {DROPDOWN_NAMES_DESC_ORDER},
+                {DROPDOWN_PRICE_ASC_ORDER},
+                {DROPDOWN_PRICE_DESC_ORDER}
         };
     }
 
@@ -70,7 +73,7 @@ public class SwagLabsHomePageTests extends LoginPageTests {
     public void selectDropdownElements(String dropdownOption){
         swagLabsHomePage = new SwagLabsHomePage(driver);
         swagLabsHomePage.selectDropdownElement
-                (dataProvider.getKeyValue(JSON_FILE_DROPDOWN_LOCATION, dropdownOption));
+                (LoadDataFromJson.getKeyValue(JSON_FILE_DROPDOWN_DATA_LOCATION, dropdownOption));
         Assert.assertTrue(dropdownOption.equals(swagLabsHomePage.getSelectedDropdownValue()));
     }
 
@@ -79,10 +82,10 @@ public class SwagLabsHomePageTests extends LoginPageTests {
         swagLabsHomePage = new SwagLabsHomePage(driver);
         List<String> productsBeforeOrdering =  swagLabsHomePage.getProductsInPage();
         Collections.sort(productsBeforeOrdering);
-        swagLabsHomePage.selectDropdownElement(dataProvider.getKeyValue(JSON_FILE_DROPDOWN_LOCATION, "nameAscendingOrder"));
+        swagLabsHomePage.selectDropdownElement(LoadDataFromJson.getKeyValue(JSON_FILE_DROPDOWN_DATA_LOCATION, DROPDOWN_PRICE_ASC_ORDER));
         Assert.assertTrue(productsBeforeOrdering.equals(swagLabsHomePage.getProductsInPage()));
         Collections.reverse(productsBeforeOrdering);
-        swagLabsHomePage.selectDropdownElement(dataProvider.getKeyValue(JSON_FILE_DROPDOWN_LOCATION, "nameDescendingOrder"));
+        swagLabsHomePage.selectDropdownElement(LoadDataFromJson.getKeyValue(JSON_FILE_DROPDOWN_DATA_LOCATION, DROPDOWN_PRICE_DESC_ORDER));
         Assert.assertTrue(productsBeforeOrdering.equals(swagLabsHomePage.getProductsInPage()));
     }
 
