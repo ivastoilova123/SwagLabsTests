@@ -3,10 +3,11 @@
     <test name="Chrome Test">
         <parameter name="browser" value="chrome"/>
         <classes>
-<!--            <class name="pages.LoginPageTests"/>-->
-           <class name="pages.SwagLabsHomePageTests">
+<!--          <class name="pages.LoginPageTests">-->
+<!--           <class name="pages.SwagLabsHomePageTests">-->
+               <class name="pages.ProductPageTests">
                <methods>
-                   <include name="selectDropdownElements" />
+                   <include name="verifyProductDetails" />
                </methods>
            </class>
         </classes>

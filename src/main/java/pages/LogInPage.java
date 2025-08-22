@@ -30,7 +30,7 @@ public class LogInPage {
 
     @Getter
     @FindBy(className = "title")
-    private WebElement productTitle;
+    private WebElement title;
 
     @Getter
     @FindBy(xpath = "//h3[@data-test=\"error\"]")
@@ -62,6 +62,5 @@ public class LogInPage {
         enterUsername(username);
         enterPassword(password);
         clickLogInButton();
-
     }
 }

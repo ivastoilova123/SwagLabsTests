@@ -1,50 +1,53 @@
 package pages;
 
-import data.LoadDataFromJson;
-import org.testng.Assert;
+import data.DataProviderClass;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+import jdk.jfr.Description;
 import org.testng.annotations.*;
+import verifications.Verifications;
 
 import static constants.Constants.*;
 
 public class LoginPageTests extends BaseTest {
     LogInPage logIn;
-    final String JSON_FILE_ERROR_MESSAGES_LOCATION = "errorMessages.json";
-    final String JSON_FILE_DROPDOWN_DATA_LOCATION = "dropdownData.json";
 
-    @Parameters("browser")
     @BeforeMethod
-    public void setUp(String browser) {
-        super.setUp(browser);
+    public void setUp() {
         logIn = new LogInPage(driver);
     }
 
-    @Test
+    @Test(description = "Verify page logo")
+    @Description("This test verifies page logo")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Login as a registered user")
+    @Feature("Page LOGO")
     public void verifyHomePageLogo() {
         logIn.gotTo();
-        Assert.assertTrue(logIn.getLoginPageLogo().isDisplayed());
-        Assert.assertTrue(logIn.getLoginPageLogo().getText().equals("Swag Labs"), "Something's wrong with logo text!");
+        Verifications.verifyLoginLogoPresence(logIn.getLoginPageLogo());
+        Verifications.verifyLoginPageLogo(logIn.getLoginPageLogo());
     }
 
-    @Test
+    @Test(description = "Verify login functionality")
+    @Description("This test verifies that a user can log in with valid credentials")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Login as a registered user")
+    @Feature("Login")
     public void validLogINTest() {
         logIn.logInSwagLabsPage(STANDARD_USER_USERNAME, PASSWORD);
-        Assert.assertTrue(logIn.getProductTitle().isDisplayed());
-        Assert.assertTrue(logIn.getAppLogo().isDisplayed());
+        Verifications.verifyProductTitle(logIn.getTitle());
+        Verifications.verifyAppPageLogo(logIn.getAppLogo());
     }
 
-    @DataProvider(name = "invalidLogIn")
-    public Object[] readJsonInvalidLogIn() {
-        return new Object[][]{
-                {STANDARD_USER_USERNAME, WRONG_PASSWORD, ERROR_MESSAGE_WRONG_PASS},
-                {LOCKED_USER_USERNAME, PASSWORD, ERROR_MESSAGE_LOCKED_USER},
-        };
-    }
-
-    @Test(dataProvider = "invalidLogIn")
+    @Description("This test verifies that a user cannot log in with invalid credentials")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Login as a broken user")
+    @Feature("Invalid Login")
+    @Test(dataProviderClass = DataProviderClass.class, dataProvider = "invalidLogIn")
     public void verifyJsonInvalidLogInData(String username, String password, String keyErrorFromJson) {
         logIn.logInSwagLabsPage(username, password);
-        String actualErrorMessage = logIn.getErrorMessage().getText();
-        Assert.assertEquals(actualErrorMessage, LoadDataFromJson.getKeyValue
-                (JSON_FILE_ERROR_MESSAGES_LOCATION, keyErrorFromJson), "Something's wrong, check username and password");
+        Verifications.verifyInvalidLogInMessage(logIn.getErrorMessage(), keyErrorFromJson);
     }
 }

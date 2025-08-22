@@ -8,7 +8,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 public class DriverSetUp {
-    protected WebDriver driver;
+    protected static WebDriver driver;
 
     @Parameters("browser")
     public void setUp(@Optional("chrome") String browser) {

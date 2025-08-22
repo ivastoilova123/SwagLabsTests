@@ -1,18 +1,15 @@
 package pages;
 
-import driver.DriverSetUp;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SwagLabsHomePage extends LogInPage {
@@ -47,7 +44,8 @@ public class SwagLabsHomePage extends LogInPage {
     @FindBy(id = "shopping_cart_container")
     private WebElement shoppingCard;
 
-    @FindBy(className = "btn btn_primary btn_small btn_inventory ")
+    @Getter
+    @FindBy(id = "add-to-cart-sauce-labs-backpack")
     private WebElement addToCartButton;
 
     @Getter
@@ -59,12 +57,25 @@ public class SwagLabsHomePage extends LogInPage {
     private WebElement allProductsInPage;
 
     @Getter
-    @FindBy(xpath = "//div[@class=\"inventory_item\"][1]//button[@class=\"btn btn_primary btn_small btn_inventory \"]")
+    @FindBy(xpath = "//div[@class=\"inventory_item\"][1]//button[@id=\"add-to-cart-sauce-labs-backpack\"]")
     private WebElement addToCardFirstProduct;
 
 
-    @FindBy(xpath = "//div[@class=\"inventory_item\"][1]//div[@class=\"inventory_item_name \"]")
+    @FindBy(id = "item_4_title_link")
     private WebElement firstProductName;
+
+    @Getter
+    @FindBy(className = "title")
+    private WebElement title;
+
+    @Getter
+    @FindBy(id = "remove-sauce-labs-backpack")
+    private WebElement removeButton;
+
+    @Getter
+    @FindBy(className = "shopping_cart_badge")
+    private WebElement shoppingCartBadge;
+
 
     public SwagLabsHomePage(WebDriver driver) {
         super(driver);
@@ -107,27 +118,17 @@ public class SwagLabsHomePage extends LogInPage {
         return dropdownActiveOption.getText();
     }
 
-    public void selectDropdownElement(String text){
+    public String selectDropdownElement(String text){
         wait.until(ExpectedConditions.visibilityOf(dropdownOptions));
         WebElement dropdown = driver.findElement
                 (By.xpath("//select[@class=\"product_sort_container\"]"));
         dropdown.click();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
         wait.until(ExpectedConditions.visibilityOf(dropdownOptions));
         Select select = new Select(dropdown);
-        System.out.println(text);
-        select.selectByVisibleText(text);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        select.selectByVisibleText(text);
 
+        select.selectByVisibleText(text);
+        WebElement selectedOption = select.getFirstSelectedOption();
+        return selectedOption.getText();
     }
 
     public List<String> getProductsInPage(){
@@ -145,13 +146,27 @@ public class SwagLabsHomePage extends LogInPage {
         addToCardFirstProduct.click();
     }
 
-    public ShoppingCardPage openShoppingCard(){
+    public YourCardPage openShoppingCard(){
         shoppingCard.click();
-        return new ShoppingCardPage(driver);
+        return new YourCardPage(driver);
     }
 
  public String getFirstProductName(){
         return firstProductName.getText();
  }
-}
 
+    public String getHomePageTitle(){
+        return getTitle().getText();
+    }
+
+    public void removeProduct(){
+        removeButton.click();
+    }
+
+    public ProductPage openFirstProduct(){
+        firstProductName.click();
+        return new ProductPage(driver);
+    }
+
+
+}
